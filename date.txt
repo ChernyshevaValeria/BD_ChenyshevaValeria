@@ -1,0 +1,96 @@
+insert into GENRE (ID, NAME) values (1, 'Detectiv');
+insert into GENRE (ID, NAME) values (2, 'Outline');
+insert into GENRE (ID, NAME) values (3, 'Story');
+insert into GENRE (ID, NAME) values (4, 'Play');
+insert into GENRE (ID, NAME) values (5, 'Novel');
+insert into GENRE (ID, NAME) values (6, 'Sketch');
+insert into GENRE (ID, NAME) values (7, 'Epopee');
+insert into GENRE (ID, NAME) values (8, 'Epos');
+insert into GENRE (ID, NAME) values (9, 'Message');
+insert into GENRE (ID, NAME) values (10, 'Elegy');
+
+
+insert into type (ID, NAME) values (1, 'Artist`s books');
+insert into TYPE (ID, NAME) values (2, 'Booklets');
+insert into TYPE (ID, NAME) values (3, 'Chapbooks');
+insert into TYPE (ID, NAME) values (4, 'Diaries');
+insert into TYPE (ID, NAME) values (5, 'Festival books');
+insert into TYPE (ID, NAME) values (6, 'Manuscripts');
+insert into TYPE (ID, NAME) values (7, 'Scrolls');
+insert into TYPE (ID, NAME) values (8, 'Volksbuch');
+insert into TYPE (ID, NAME) values (9, 'Journal');
+insert into TYPE (ID, NAME) values (10, 'Book magazine');
+
+
+insert into TYPE_OF_ISSUE (ID, NAME) values (1, 'Reserve');
+insert into TYPE_OF_ISSUE (ID, NAME) values (2, 'Stock');
+
+
+insert into READERSHIP (ID, SURNAME, NAME, PARTRONYMIC, PHONE_NUMBER ) 
+values (1, 'Rusakov','Mihail','Andreevich', 89316666666);
+insert into READERSHIP (ID, SURNAME, NAME, PARTRONYMIC, PHONE_NUMBER ) 
+values (2, 'Larionova','Anna','Alekseevna', 89117564378);
+insert into READERSHIP (ID, SURNAME, NAME, PARTRONYMIC, PHONE_NUMBER ) 
+values (3, 'Menshikov', 'Alexandr', 'Georgievuch', 89128765434);
+insert into READERSHIP (ID, SURNAME, NAME, PARTRONYMIC, PHONE_NUMBER ) 
+values (4, 'Fridman','Mihail','Anatolevich', 89568675423);
+insert into READERSHIP (ID, SURNAME, NAME, PARTRONYMIC, PHONE_NUMBER ) 
+values (5, 'Chernyshev','Matvey','Andreevich', 89236451290);
+insert into READERSHIP (ID, SURNAME, NAME, PARTRONYMIC, PHONE_NUMBER ) 
+values (6, 'Ivanov','Ivan','Ivanovich', 84673747632);
+insert into READERSHIP (ID, SURNAME, NAME, PARTRONYMIC, PHONE_NUMBER ) 
+values (7, 'Peters','Elizaveta','Petrovna', 89846446732);
+insert into READERSHIP (ID, SURNAME, NAME, PARTRONYMIC, PHONE_NUMBER ) 
+values (8, 'Nikulina','Alexsandra','Leonidovna', 89464646);
+insert into READERSHIP (ID, SURNAME, NAME, PARTRONYMIC, PHONE_NUMBER ) 
+values (9, 'Novokirova','Julia','Anatolievna', 89564323456);
+insert into READERSHIP (ID, SURNAME, NAME, PARTRONYMIC, PHONE_NUMBER ) 
+values (10, 'Ivanov','Anton','Nikolaevich', 89567353423);
+
+
+
+insert into AUTHOR (ID, SURNAME, NAME, PARTRONYMIC )
+values (2, 'Radzinsky','Edvard','Stanislavovich');
+insert into AUTHOR (ID, SURNAME, NAME, PARTRONYMIC ) 
+values (3, 'Kuprin','Alexandr','Ivanovich');
+insert into AUTHOR (ID, SURNAME, NAME, PARTRONYMIC ) 
+values (4, 'Bulgakov','Mihail','Afanasevich');
+insert into AUTHOR (ID, SURNAME, NAME, PARTRONYMIC ) 
+values (5, 'Chehon','Anton','Pavlovich');
+insert into AUTHOR (ID, SURNAME, NAME, PARTRONYMIC ) 
+values (6, 'Pushkin','Alexandr','Sergeevich');
+insert into AUTHOR (ID, SURNAME, NAME, PARTRONYMIC ) 
+values (7, 'Fonvisin','Denis','Ivanovich');
+insert into AUTHOR (ID, SURNAME, NAME, PARTRONYMIC ) 
+values (8, 'Radischev','Alexandr','Nikolaevich');
+insert into AUTHOR (ID, SURNAME, NAME, PARTRONYMIC ) 
+values (9, 'Blok','Alexandr','Aleksandrovich');
+insert into AUTHOR (ID, SURNAME, NAME, PARTRONYMIC ) 
+values (1, 'Zaitzev','Boris','Konstantinovich');
+insert into AUTHOR (ID, SURNAME, NAME, PARTRONYMIC ) 
+values (11, 'Zamyatin','Evgeniy','Ivanovich');
+
+insert into exemp(ID, ID_BOOK) values (10,0);
+insert into exemp(ID, ID_BOOK) values (11,0);
+insert into exemp(ID, ID_BOOK) values (12,1);
+insert into exemp(ID, ID_BOOK) values (13,1);
+insert into exemp(ID, ID_BOOK) values (14,2);
+insert into exemp(ID, ID_BOOK) values (15,2);
+insert into exemp(ID, ID_BOOK) values (16,2);
+insert into exemp(ID, ID_BOOK) values (17,4);
+insert into exemp(ID, ID_BOOK) values (18,3);
+insert into exemp(ID, ID_BOOK) values (19,4);
+
+
+insert into BOOK(ID, NAME, ID_TYPE, ID_GENRE) values (0,'MASTER AND MARGARITA',1,2);
+insert into BOOK(ID, NAME, ID_TYPE, ID_GENRE) values (1,'THE WHITE GUARD',2,3);
+insert into BOOK(ID, NAME, ID_TYPE, ID_GENRE) values (2,'COLLECTION OF POEMS',7,5);
+insert into BOOK(ID, NAME, ID_TYPE, ID_GENRE) values (3,'EUGENE ONEGIN',8,10);
+insert into BOOK(ID, NAME, ID_TYPE, ID_GENRE) values (4,'GARNET BRACELET. TALE.',6,9);
+
+insert into BOOK_AUTHOR(ID_AUTHOR, ID_BOOK) values (4,0);
+insert into BOOK_AUTHOR(ID_AUTHOR, ID_BOOK) values (4,1);
+insert into BOOK_AUTHOR(ID_AUTHOR, ID_BOOK) values (9,2);
+insert into BOOK_AUTHOR(ID_AUTHOR, ID_BOOK) values (6,3);
+insert into BOOK_AUTHOR(ID_AUTHOR, ID_BOOK) values (3,4);
+
