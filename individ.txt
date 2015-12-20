@@ -1,0 +1,44 @@
+1)CREATE VIEW SELECTTOP10BOOK
+AS
+select first 10 EXEMP.ID, EXEMP.ID as EXEMP,
+COUNT(OPERATION.ID_EXEMP) as Sell
+from  operation, EXEMP
+where    (OPERATION.ID_EXEMP=EXEMP.ID) and (exemp.id_status=0)
+group by  EXEMP.ID
+order by Sell desc;
+
+
+
+
+
+2)SET NAMES WIN1251;
+
+CONNECT 'C:\123\BIBLIOTEKA.FDB' USER 'SYSDBA' PASSWORD 'masterkey';
+
+
+create view popular5author as
+select first 5 author.id, author.id as author,
+COUNT(OPERATION.ID_EXEMP) as Sell
+from  operation, EXEMP,book_author, AUTHOR
+where    (OPERATION.ID_EXEMP=EXEMP.ID) and (EXEMP.ID_BOOK=BOOK_AUTHOR.ID_BOOK) and (BOOK_AUTHOR.ID_AUTHOR=AUTHOR.ID)
+
+group by  author.id
+order by Sell desc;
+
+
+
+
+
+
+
+3)SET NAMES WIN1251;
+
+CONNECT 'C:\123\BIBLIOTEKA.FDB' USER 'SYSDBA' PASSWORD 'masterkey';
+
+set term ^;
+create procedure del_genre as
+begin
+    delete from genre where ID  not in (select ID_genre from BOOK);
+end ^
+
+
