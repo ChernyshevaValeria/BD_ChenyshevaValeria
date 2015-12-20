@@ -1,0 +1,229 @@
+SET NAMES WIN1251;
+
+CONNECT 'C:\123\BIBLIOTEKA.FDB' USER 'SYSDBA' PASSWORD 'masterkey';
+
+create view AuthorSel as select * from Author;
+create view BookSel as select * from Book;
+create view BookAuthorSel as select * from book_author;
+create view ExempSel as select * from exemp;
+create view GenreSel as select * from genre;
+create view IntakeSel as select * from intake;
+create view OperationSel as select * from operation;
+create view ProvaiderSel as select * from provaider;
+create view ReserveSel as select * from reserve;
+create view StatusSel as select * from status;
+create view TypeSel as select * from type;
+create view TypeOfIssueSel as select * from type_of_issue;
+create view WrittenOfSel as select * from write_off;
+
+
+
+
+
+
+SET NAMES WIN1251;
+CONNECT 'C:\123\BIBLIOTEKA.FDB' USER 'SYSDBA' PASSWORD 'masterkey';
+create view selectRusakov as select * from Readership where SURNAME like 'Rusakov';
+create view selectAuthor as select * from Author where id between 0 and 20;  
+create view selectBook as select * from Book where Id_genre  in (4,5);
+
+
+
+
+SET NAMES WIN1251;
+
+CONNECT 'C:\123\BIBLIOTEKA.FDB' USER 'SYSDBA' PASSWORD 'masterkey';
+
+create view SelectOperation as select * from Operation order by Id_readership asc, Date_of_issue asc;
+
+
+
+
+
+SET NAMES WIN1251;
+
+CONNECT 'C:\123\BIBLIOTEKA.FDB' USER 'SYSDBA' PASSWORD 'masterkey';
+
+
+create view selectGenreInBookName
+as select Genre.Name as Genre,
+    Book.Name as Book
+    from Genre, Book
+    where Genre.id = Book.id_genre;
+
+
+
+create view selectNameBook
+as select Book.Name as Book,
+   Exemp.Id as Exemp ,
+   Status.Name as Status
+
+    from Book, Exemp, Status
+    where Exemp.id_status = Status.id;
+
+
+
+
+SET NAMES WIN1251;
+
+CONNECT 'C:\123\BIBLIOTEKA.FDB' USER 'SYSDBA' PASSWORD 'masterkey';
+
+
+
+ create view selectExempCount
+as select Exemp.id_book as id_book,
+COUNT(Exemp.id_book) as Counts
+ from Exemp
+ group by Exemp.id_book;
+
+
+
+
+
+
+
+
+SET NAMES WIN1251;
+CONNECT 'C:\123\BIBLIOTEKA.FDB' USER 'SYSDBA' PASSWORD 'masterkey';
+create view selectEXempWrittenOff as select * from Exemp where Id
+not in (select Id_Exemp from Write_Off);
+
+
+
+
+
+
+SET NAMES WIN1251;
+CONNECT 'C:\123\BIBLIOTEKA.FDB' USER 'SYSDBA' PASSWORD 'masterkey';
+-- Добавим запись в таблицу авторов
+create procedure insert_author (id integer,  SURNAME varchar(50),
+ NAME varchar(50), PARTRONYMIC varchar(50))
+as
+begin
+    insert into AUTHOR (ID, SURNAME, NAME, PARTRONYMIC)
+    values (:ID, :SURNAME, :NAME, :PARTRONYMIC);
+end;    
+-- Добавим запись в таблицу книг
+create procedure insert_book (id integer,  NAME varchar(50),
+ ID_TYPE integer, ID_GENRE integer)
+as
+begin
+insert into BOOK (id,  NAME, ID_TYPE, ID_GENRE)
+values (:id, :NAME, :ID_TYPE, :ID_GENRE);
+end;
+-- Добавим запись в таблицу связи книг и авторов
+create procedure insert_book_author (id_author integer, id_book integer)
+as
+begin
+insert into BOOK_AUTHOR (id_author, id_book)
+values (:id_AUTHOR, :ID_BOOK);
+end;
+-- Добавим запись в таблицу экземпляров
+create procedure insert_exemp (id integer, id_book integer, id_status integer)
+as
+begin
+ insert into EXEMP (id, id_book, id_status)
+ values (:id, :id_book, :id_status);
+end;
+-- Добавим запись в таблицу жанров
+create procedure insert_genre (ID integer, NAME varchar(50))
+as
+begin
+  insert into GENRE (ID, NAME)
+  values (:ID, :NAME);
+end;
+-- Добавим запись в таблицу поступлений книг
+create procedure insert_intake (ID integer, DATE_INTAKE date, ID_PROVAIDER integer, ID_EXEMP integer)
+as
+begin
+  insert into intake (ID, DATE_INTAKE, ID_PROVAIDER, ID_EXEMP)
+  values (:ID, :DATE_INTAKE, :ID_PROVAIDER, :ID_EXEMP);
+end;
+-- Добавим запись в таблицу операций по книгам
+create procedure insert_OPERATION (ID integer, ID_READERSHIP integer,
+ ID_EXEMP integer, ID_TYPE_OF_ISSUE integer, PERIOD integer, DATE_OF_ISSUE date, RETURN_DATE date)
+as
+begin
+  insert into OPERATION (ID, ID_READERSHIP, ID_EXEMP, ID_TYPE_OF_ISSUE, PERIOD, DATE_OF_ISSUE, RETERN_DATE)
+  values (:ID, :ID_READERSHIP, :ID_EXEMP, :ID_TYPE_OF_ISSUE, :PERIOD, :DATE_OF_ISSUE, :RETURN_DATE) ;
+end;
+-- Добавим запись в таблицу читателей
+create procedure insert_READERSHIP (ID integer, SURNAME varchar(50), NAME varchar(50), PARTRONYMIC varchar(50), PHONE_NUMBER integer)
+as
+begin
+ insert into READERSHIP (ID, SURNAME, NAME, PARTRONYMIC, PHONE_NUMBER)
+ values (:ID, :SURNAME, :NAME, :PARTRONYMIC, :PHONE_NUMBER) ;
+end;
+-- Добавим запись в таблицу резерва
+create procedure insert_RESERVE (ID integer, ID_READERSHIP integer, ID_EXEMP integer, DATE_RESERVE date)
+as
+begin
+ insert into RESERVE (ID, ID_READSHIP, ID_EXEMP, DATE_RESERVE)
+ values (:ID, :ID_READERSHIP, :ID_EXEMP, :DATE_RESERVE) ;
+end;
+-- Добавим запись в таблицу поставщиков
+create procedure insert_PROVAIDER (ID integer, NAME varchar(50))
+as
+begin
+  insert into provaider (ID, NAME)
+  values (:ID, :NAME);
+end;
+-- Добавим запись в таблицу статусов
+create procedure insert_STATUS (ID integer, NAME varchar(100))
+as
+begin
+  insert into STATUS (ID, NAME)
+  values (:ID, :NAME);
+end;
+-- Добавим запись в таблицу типов книг
+create procedure insert_TYPE (ID integer, NAME varchar(50))
+as
+begin
+  insert into type (ID, NAME)
+  values (:ID, :NAME);
+end;
+-- Добавим запись в таблицу "тип выдачи"
+create procedure insert_TYPE_OF_ISSUE (ID integer, NAME varchar(50))
+as
+begin
+  insert into TYPE_OF_ISSUE (ID, NAME)
+  values (:ID, :NAME);
+end;
+-- Добавим запись в таблицу списания книг
+create procedure insert_write_off (ID integer, DATE_WRITE_OFF date, ID_EXEMP integer)
+as
+begin
+  insert into write_off (ID, date_write_off, id_exemp)
+  values (:ID, :date_write_off, :id_exemp);
+end;
+
+
+
+
+
+SET NAMES WIN1251;
+
+CONNECT 'C:\123\BIBLIOTEKA.FDB' USER 'SYSDBA' PASSWORD 'masterkey';
+
+set term ^;
+create procedure update_PERIOD1 (period int) as
+begin
+  update operation set PERIOD = :period where OPERATION.RETERN_DATE = 0;
+end^;
+
+
+
+
+
+SET NAMES WIN1251;
+
+CONNECT 'C:\123\BIBLIOTEKA.FDB' USER 'SYSDBA' PASSWORD 'masterkey';
+
+set term ^;
+create procedure del_type as
+begin
+    delete from TYPE where ID  not in (select ID_TYPE from BOOK);
+end ^
+
+
+
