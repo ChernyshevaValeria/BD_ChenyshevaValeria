@@ -1,0 +1,31 @@
+
+SET NAMES WIN1251;
+CONNECT 'C:\123\BIBLIOTEKA.FDB' USER 'SYSDBA' PASSWORD 'masterkey';
+
+
+create procedure AUTHOR_DYNAMIC (surname varchar(50), name varchar(50), partronymic varchar(50))
+returns (month_of_issue numeric(2), year_of_issue numeric(4), quantity numeric(10) )
+    as
+    begin
+
+      for
+       select
+            extract(month from operation.date_of_issue) as month_of_issue,
+            extract(year from operation.date_of_issue) as year_of_issue,
+            sum(operation.id_exemp) as quantity
+       from
+            author as author inner join book_author as book_author on author.id=book_author.id_author
+            inner join exemp as exemp on book_author.id_book=exemp.id_book
+            inner join operation as operation on EXEMP.ID=OPERATION.ID_EXEMP
+        where (author.name like :name) and (author.surname like :surname) and (author.partronymic like :partronymic)
+
+    group by month_of_issue, year_of_issue
+    order by year_of_issue, month_of_issue
+    into
+      :month_of_issue,
+      :year_of_issue,
+      :quantity
+
+ do
+    suspend;
+end
