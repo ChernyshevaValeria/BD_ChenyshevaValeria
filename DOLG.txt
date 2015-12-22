@@ -1,0 +1,29 @@
+
+SET NAMES WIN1251;
+
+CONNECT 'C:\123\BIBLIOTEKA.FDB' USER 'SYSDBA' PASSWORD 'masterkey';
+
+
+ drop procedure DOLG;
+create procedure DOLG
+returns (surname varchar(50), name varchar(50), partronymic varchar(50))
+as 
+begin
+    FOR
+   SELECT
+            READERSHIP.surname AS surname,
+            READERSHIP.name AS name,
+            READERSHIP.partronymic AS partronymic
+         from readership as readership inner join operation as operation on readership.id=operation.id_readership
+         where  operation.retern_date is null
+                and dateadd(day, operation.period, operation.date_of_issue) < CAST('today' AS DATE)
+
+      into
+       :surname,
+       :name,
+       :partronymic
+       do
+    suspend;
+
+
+end
