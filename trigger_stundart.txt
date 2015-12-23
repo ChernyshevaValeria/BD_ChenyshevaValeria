@@ -1,0 +1,38 @@
+SET NAMES WIN1251;
+
+CONNECT 'C:\123\BIBLIOTEKA.FDB' USER 'SYSDBA' PASSWORD 'masterkey';
+
+drop trigger book_genre;
+create exception error 'Error deleting genre book';
+
+
+create trigger book_genre for genre before delete or update
+as
+begin
+ if (OLD.id in (select book.id_genre from book)) then
+ exception error;
+end;
+
+
+
+
+
+SET NAMES WIN1251;
+
+CONNECT 'C:\123\BIBLIOTEKA.FDB' USER 'SYSDBA' PASSWORD 'masterkey';
+
+
+
+create trigger genre_1 for genre before insert
+as
+begin
+ new.id = gen_id(gen_genre_id,1);
+ end
+
+
+
+
+
+
+
+
