@@ -1,0 +1,46 @@
+SET NAMES WIN1251;
+
+CONNECT 'C:\123\BIBLIOTEKA.FDB' USER 'SYSDBA' PASSWORD 'masterkey';
+
+insert into operation(id, id_readership, id_type_of_issue, period, date_of_issue, id_exemp)
+values (60, 2, 2, 1,'23.12.2015', 23);
+
+
+
+SET NAMES WIN1251;
+
+CONNECT 'C:\123\BIBLIOTEKA.FDB' USER 'SYSDBA' PASSWORD 'masterkey';
+                       /*
+create exception E_debts 'Debts!';
+
+                             */
+CREATE OR ALTER TRIGGER check_debts FOR Operation
+
+ACTIVE BEFORE INSERT POSITION 0
+
+as
+declare variable cnt integer;
+begin
+
+
+     SELECT
+        sum(1) as cnt
+     from operation as operation
+     where operation.retern_date is null and
+     dateadd(day, operation.period, operation.date_of_issue) < CAST('today' AS DATE) and
+      operation.id_readership = new.id_readership
+
+                into :cnt;
+
+if(cnt>0)then
+    exception e_debts;
+end
+
+
+
+
+
+
+
+
+
