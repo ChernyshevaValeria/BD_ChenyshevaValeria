@@ -1,0 +1,51 @@
+--триггер
+
+SET NAMES WIN1251;
+
+CONNECT 'C:\123\BIBLIOTEKA.FDB' USER 'SYSDBA' PASSWORD 'masterkey';
+                       
+create exception  'Limit book';
+                             
+CREATE OR ALTER TRIGGER Check_quantity_book FOR operation
+
+ACTIVE BEFORE UPDATE POSITION 0
+
+as
+declare variable new_quantity_book numeric(10);
+begin
+
+  execute procedure quantity_book(new.id_readership) returning_values (:new_quantity_book);
+
+  if (:new_quantity_book > 3) then exception limit;
+
+end
+
+
+--Вызываемая процедура
+
+
+create procedure QUANTITY_BOOK (id_readership integer)
+returns (QUANTITY_BOOK NUMERIC(10))
+    as
+begin
+FOR select
+    count(operation.id) as QUANTITY_BOOK
+     from operation as operation
+      where operation.retern_date is null and
+      operation.id_readership = :id_readership
+
+     into
+     :QUANTITY_BOOK
+
+      do
+    suspend;
+
+end
+
+
+
+
+
+
+
+
